@@ -1,6 +1,4 @@
 __pycache__/
 node_modules/
-static/styles/
-static/scripts/
 .vscode/
 .DS_Store
