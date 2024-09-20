@@ -90,6 +90,8 @@
 
   <div class="error-message">
     <h1>404</h1>
+    <a href="https://www.tech-echo.dev/">回首頁
+    </a>
   </div>
 </div>
 </template>
@@ -256,3 +258,13 @@ body {
   font-size: 15vh;
 }
 </style>
+
+<script>
+export default {
+  mounted() {
+    setTimeout(() => {
+      window.location.href = 'https://www.tech-echo.dev/';
+    }, 5000);
+  }
+}
+</script>
