@@ -3,7 +3,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <div ref="p5Canvas" class="p5-container"></div>
     <div class="absolute z-10 redirect-message top-10 right-10">
-      <p class="text-3xl text-red-500 redirect-link">訪問的頁面不存在，5秒後<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold p-2 m-2 rounded">跳回首頁</button>...</p>
+      <p class="text-3xl text-red-500 redirect-link">
+        訪問的頁面不存在，5秒後
+        <button 
+          class="bg-orange-500 hover:bg-orange-700 text-white font-bold p-2 m-2 rounded"
+          onclick="window.location.href='https://www.tech-echo.dev/'"
+        >
+          跳回首頁
+        </button>
+      </p>
     </div>
   </div>
 </template>
