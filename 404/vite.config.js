@@ -5,7 +5,7 @@ import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
-  base: '/test_vue/',
+  base: '/vue/',
   plugins: [vue()],
   resolve: {
     alias: {
