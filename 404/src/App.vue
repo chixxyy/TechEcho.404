@@ -7,11 +7,12 @@
         訪問的頁面不存在，5秒後
         <button 
           class="bg-orange-500 hover:bg-orange-700 text-white font-bold p-2 m-2 rounded"
-          onclick="window.location.href='https://www.tech-echo.dev/'"
+          @click="redirectToHome"
         >
           跳回首頁
         </button>
       </p>
+      <p v-if="isLoading" class="text-lg">加載中...</p> 
     </div>
   </div>
 </template>
@@ -28,37 +29,29 @@ export default {
   },
   mounted() {
     this.sketch = new p5(this.createSketch, this.$refs.p5Canvas);
-
     
-    setTimeout(() => {
-      window.location.href = "https://www.tech-echo.dev/";
-    }, 5000); 
+    setTimeout(this.redirectToHome, 5000); 
   },
   methods: {
+    redirectToHome() {
+      window.location.href = "https://www.tech-echo.dev/";
+    },
     createSketch(p) {
       const particles = [];
       const txt = "404";
       const clr = "white";
-      let txtindex = 0;
-
-      let res;
-      let scale;
-      let margin;
-      let xSpacing; 
-      let ySpacing; 
-      let maxDist;
-
       const speed = 0.015;
+      let res, scale, margin, xSpacing, ySpacing, maxDist;
 
-      function reset() {
+      const reset = () => {
         scale = res / 60;
         margin = 30 * scale;
         xSpacing = 20 * scale;
         ySpacing = 20 * scale;
         maxDist = 100 * scale;
-      }
+      };
 
-      p.setup = function() {
+      p.setup = () => {
         res = Math.min(p.windowWidth, p.windowHeight);
         reset();
         p.createCanvas(p.windowWidth, p.windowHeight);
@@ -76,20 +69,18 @@ export default {
               origY: y,
               targetX: x,
               targetY: y,
-              txt: txt[txtindex]
+              txt: txt[(y / ySpacing + x / xSpacing) % txt.length]
             });
-
-            txtindex = (txtindex + 1) % txt.length;
           }
         }
 
         this.isLoading = false;
-      }.bind(this);
+      };
 
-      p.draw = function() {
+      p.draw = () => {
         p.background(0);
 
-        for (let particle of particles) {
+        particles.forEach(particle => {
           const d = p.dist(particle.origX, particle.origY, p.mouseX, p.mouseY);
           const distortionX = p.map(d, 0, maxDist, p.mouseX, particle.origX, true);
           const distortionY = p.map(d, 0, maxDist, p.mouseY, particle.origY, true);
@@ -97,18 +88,16 @@ export default {
           particle.targetX = distortionX;
           particle.targetY = distortionY;
 
-          const dx = (particle.targetX - particle.x) * speed;
-          const dy = (particle.targetY - particle.y) * speed;
-          particle.x += dx;
-          particle.y += dy;
+          particle.x += (particle.targetX - particle.x) * speed;
+          particle.y += (particle.targetY - particle.y) * speed;
 
           p.textSize(p.map(d, 0, maxDist, 2 * scale, 16 * scale, true));
           p.fill(particle.clr);
           p.text(particle.txt, particle.x, particle.y);
-        }
+        });
       };
 
-      p.windowResized = function() {
+      p.windowResized = () => {
         p.resizeCanvas(p.windowWidth, p.windowHeight);
         reset();
       };
@@ -121,3 +110,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.p5-container {
+  width: 100%;
+  height: 100vh;
+}
+</style>
