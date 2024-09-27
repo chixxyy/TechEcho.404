@@ -44,7 +44,7 @@ export default {
       let res, scale, margin, xSpacing, ySpacing, maxDist;
 
       const reset = () => {
-        scale = res / 60;
+        scale = res / 65;
         margin = 30 * scale;
         xSpacing = 20 * scale;
         ySpacing = 20 * scale;
@@ -58,6 +58,9 @@ export default {
         p.angleMode(p.DEGREES);
         p.textAlign(p.CENTER, p.CENTER);
         p.textFont("Orbitron");
+
+        const fontSize = Math.min(p.windowWidth, p.windowHeight) / 5; 
+        p.textSize(fontSize);
 
         for (let y = margin; y <= p.height - margin; y += ySpacing) {
           for (let x = margin; x <= p.width - margin; x += xSpacing) {
@@ -91,7 +94,7 @@ export default {
           particle.x += (particle.targetX - particle.x) * speed;
           particle.y += (particle.targetY - particle.y) * speed;
 
-          p.textSize(p.map(d, 0, maxDist, 2 * scale, 16 * scale, true));
+          p.textSize(p.max(16 * scale, 32));
           p.fill(particle.clr);
           p.text(particle.txt, particle.x, particle.y);
         });
