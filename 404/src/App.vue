@@ -6,7 +6,7 @@
       <p class="text-3xl text-red-500 redirect-link">
         訪問的頁面不存在，5秒後
         <button 
-          class="bg-orange-500 hover:bg-orange-700 text-white font-bold p-2 m-2 rounded"
+          class="p-2 m-2 font-bold text-white bg-orange-500 rounded hover:bg-orange-700"
           @click="redirectToHome"
         >
           跳回首頁

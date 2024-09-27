@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@404/*": ["404/src/*"],
-      "@405/*": ["405/src/*"]
+      "@404/*": ["404/src/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
